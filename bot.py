@@ -32,7 +32,7 @@ ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 # Mensagem ao iniciar
 @bot.event
 async def on_ready():
-    canal = bot.get_channel(1307068973614891130)  # Substituir pelo ID do canal
+    canal = bot.get_channel(ID)  # Substituir pelo ID do canal
     if canal:
         await canal.send("🤖 Bot está online! Use `!ajuda` para ver os comandos disponíveis.")
     print(f"✅ {bot.user} está online!")
@@ -266,4 +266,5 @@ async def playrandom(ctx):
     await ctx.send(f"🎵 Tocando agora: **{data['title']}**")
 
 # Iniciar o bot
+
 bot.run("ID BOT")
