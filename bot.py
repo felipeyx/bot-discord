@@ -1,3 +1,4 @@
+import os
 import discord
 import random
 import datetime
@@ -7,7 +8,10 @@ from discord.ext import commands
 
 # Configuração do bot
 intents = discord.Intents.all()
-bot = commands.Bot(command_prefix="!", intents=intents)
+bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
+
+DISCORD_TOKEN = os.getenv("DISCORD_TOKEN")
+STARTUP_CHANNEL_ID = os.getenv("DISCORD_CHANNEL_ID")
 
 # Configuração do youtube_dl
 youtube_dl.utils.bug_reports_message = lambda: ''
@@ -32,13 +36,11 @@ ytdl = youtube_dl.YoutubeDL(ytdl_format_options)
 # Mensagem ao iniciar
 @bot.event
 async def on_ready():
-    canal = bot.get_channel(ID)  # Substituir pelo ID do canal
-    if canal:
-        await canal.send("🤖 Bot está online! Use `!ajuda` para ver os comandos disponíveis.")
+    if STARTUP_CHANNEL_ID and STARTUP_CHANNEL_ID.isdigit():
+        canal = bot.get_channel(int(STARTUP_CHANNEL_ID))
+        if canal:
+            await canal.send("🤖 Bot está online! Use `!help` para ver os comandos disponíveis.")
     print(f"✅ {bot.user} está online!")
-
-# Configuração do bot (comando de ajuda desativado)
-bot = commands.Bot(command_prefix="!", intents=intents, help_command=None)
 
 # 📜 Comando de ajuda personalizado
 @bot.command(name="help", help="📜 Mostra a lista de comandos disponíveis")
@@ -267,4 +269,7 @@ async def playrandom(ctx):
 
 # Iniciar o bot
 
-bot.run("ID BOT")
+if not DISCORD_TOKEN:
+    raise RuntimeError("Defina a variável de ambiente DISCORD_TOKEN antes de iniciar o bot.")
+
+bot.run(DISCORD_TOKEN)
