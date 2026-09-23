@@ -39,3 +39,35 @@ Desenvolvido em **Python** utilizando `discord.py` e `yt_dlp` para reprodução 
 - **discord.py**  
 - **yt_dlp**  
 - **FFmpeg**  
+
+
+---
+
+## 🚀 Como executar
+
+1. Instale Python 3.10+ e FFmpeg.
+2. Instale as dependências:
+
+```bash
+pip install -r requirements.txt
+```
+
+3. Crie o bot no Discord Developer Portal e defina o token em uma variável de ambiente. **Nunca publique o token no repositório.**
+
+Linux/macOS:
+
+```bash
+export DISCORD_TOKEN="seu-token"
+export DISCORD_CHANNEL_ID="123456789012345678" # opcional
+python bot.py
+```
+
+PowerShell:
+
+```powershell
+$env:DISCORD_TOKEN="seu-token"
+$env:DISCORD_CHANNEL_ID="123456789012345678" # opcional
+python bot.py
+```
+
+A variável `DISCORD_CHANNEL_ID` é opcional e define o canal que recebe a mensagem de inicialização.
